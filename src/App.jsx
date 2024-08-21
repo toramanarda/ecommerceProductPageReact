@@ -8,15 +8,11 @@ import minus from '/src/img/minus.png';
 import plus from '/src/img/plus.png';
 import shoppingCarWhite from '/src/img/shoppingCarWhite.svg';
 import trash from '/src/img/trash.svg';
-import shoes2 from '/src/img/shoes2.svg';
-import shoes3 from '/src/img/shoes3.png';
-import shoes4 from '/src/img/shoes4.png';
-import shoes5 from '/src/img/shoes5.png';
 import shoesDesktop from '/src/img/shoesDesktop.png';
 import slider1 from '/src/img/slider1.png';
-import slider2 from '/src/img/slider3.png';
-import slider3 from '/src/img/slider4.png';
-
+import slider2 from '/src/img/slider2.png';
+import slider3 from '/src/img/slider3.png';
+import slider4 from '/src/img/slider4.png';
 
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,7 +20,7 @@ function App() {
   const [showCartModal, setShowCartModal] = useState(false);
   const [cartItem, setCartItem] = useState(null);
 
-  const images = [slider1, slider2, slider3];
+  const images = [slider1, slider2, slider3, slider4];
 
   const changeSlide = (step) => {
     let newIndex = currentIndex + step;
@@ -69,7 +65,6 @@ function App() {
     </div>
   );
 }
-
 
 function Slider({ images, currentIndex, changeSlide }) {
   return (
@@ -160,14 +155,26 @@ function HeaderNavbar({ setShowCartModal }) {
 }
 
 function Product() {
+  const [currentImage, setCurrentImage] = useState(shoesDesktop);
+
+  const images = [slider1, slider2, slider3, slider4];
+
+  const handleImageClick = (image) => {
+    setCurrentImage(image);
+  };
+
   return (
     <div className="product">
-      <img className="shoes" src={shoesDesktop} alt="shoes" />
+      <img className="shoes" src={currentImage} alt="shoes" />
       <div className="productImages">
-        <img src={shoes5} alt="shoes5" />
-        <img src={shoes2} alt="shoes2" />
-        <img src={shoes3} alt="shoes3" />
-        <img src={shoes4} alt="shoes4" />
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`shoes${index + 1}`}
+            onClick={() => handleImageClick(image)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -224,6 +231,13 @@ function PieceAdd({ quantity, setQuantity, handleAddToCart }) {
 
 function CartModal({ showCartModal, cartItem, setQuantity, setCartItem, setShowCartModal }) {
   if (!showCartModal || !cartItem) return null;
+
+  const handleCheckout = () => {
+    setQuantity(0);
+    setCartItem(null);
+    setShowCartModal(false);
+  };
+
   return (
     <div className="cart-modal" id="cart-modal">
       <h2 className="cart">Cart</h2>
@@ -246,13 +260,15 @@ function CartModal({ showCartModal, cartItem, setQuantity, setCartItem, setShowC
                 }}
               >
                 <img src={trash} alt="trash" />
+                Remove
               </button>
             </p>
           </div>
         </div>
-        <button className="close-modal" id="close-modal" onClick={() => setShowCartModal(false)}>
-          Checkout
-        </button>
+        <hr />
+        <div className="checkout">
+          <button onClick={handleCheckout}>Checkout</button>
+        </div>
       </div>
     </div>
   );

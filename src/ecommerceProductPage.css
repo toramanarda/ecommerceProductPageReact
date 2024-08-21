@@ -1,4 +1,3 @@
-
 *,
 *::before,
 *::after {
@@ -484,6 +483,17 @@ h6 {
   display: none;
 }
 
+.checkout button {
+  background-color: #FF7E1B;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.84px;
+  padding: 20px 80px;
+  border-radius: 60px;
+}
+
 @media(width >=1110px) {
   .header {
     display: none;
@@ -627,9 +637,20 @@ h6 {
     align-items: baseline;
   }
 
-  .cart-modal  {
+  .cart-modal {
     top: 0;
     transform: translate(121%, 33%);
     width: 21%;
+  }
+
+  .checkout button {
+    background-color: #FF7E1B;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.84px;
+    padding: 20px 80px;
+    border-radius: 60px;
   }
 }
